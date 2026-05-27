@@ -798,12 +798,13 @@ function buildDetail(row) {
     </div>`;
 
   // Notification grid
+  const isCougar = row.cat === 'COUGAR';
   const levels = [
-    { label:'G33',  code: row.g33 },
-    { label:'G3',   code: row.g3  },
-    { label:'CoS',  code: row.cos },
-    { label:'DCG',  code: row.dcg },
-    { label:'CG',   code: row.cg  }
+    { label: isCougar ? 'C05' : 'G33 · C05', code: row.g33 },
+    { label: isCougar ? 'C03' : 'G3 · C03',  code: row.g3  },
+    { label: isCougar ? 'C08' : 'COS · C08', code: row.cos },
+    { label: isCougar ? 'C07' : 'DCG · C07', code: row.dcg },
+    { label: isCougar ? 'C06' : 'CG · C06',  code: row.cg  }
   ];
   const cellsHtml = levels.map(l => `
     <div class="notif-cell">
