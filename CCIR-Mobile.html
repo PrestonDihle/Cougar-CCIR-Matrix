@@ -20,13 +20,13 @@
 <title>V Corps CCIR — Mobile</title>
 <style>
   :root {
-    --army-dark:  #4a6b7a;
-    --army-green: #5C7E8F;
-    --army-tan:   #A2A2A2;
-    --army-light: #D4DDE2;
-    --bg:         #D4DDE2;
+    --army-dark:  #1C2B78;
+    --army-green: #2B45A8;
+    --army-tan:   #E8A800;
+    --army-light: #EAF0FB;
+    --bg:         #EAF0FB;
     --card-bg:    #ffffff;
-    --border:     #A2A2A2;
+    --border:     #B0B8C8;
     --c-red:      #a93226;
     --c-amber:    #d68910;
     --c-green:    #1e8449;
@@ -89,7 +89,7 @@
   }
   .header-text p {
     font-size: 10px;
-    color: #D4DDE2;
+    color: var(--army-tan);
     margin-top: 2px;
   }
 
@@ -105,7 +105,7 @@
     border: none;
     border-radius: 8px;
     font-size: 14px;
-    background: #D4DDE2;
+    background: #EAF0FB;
     color: var(--text);
     outline: none;
   }
@@ -116,7 +116,7 @@
     border: none;
     border-radius: 8px;
     font-size: 13px;
-    background: #D4DDE2;
+    background: #EAF0FB;
     color: var(--text);
     outline: none;
     max-width: 110px;
@@ -124,7 +124,7 @@
 
   .result-strip {
     background: var(--army-green);
-    color: #D4DDE2;
+    color: var(--army-tan);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: .4px;
@@ -134,7 +134,7 @@
 
   /* ── FILTER CHIPS ── */
   .chip-row {
-    background: #4a6b7a;
+    background: var(--army-dark);
     padding: 6px 12px;
     display: flex;
     gap: 6px;
@@ -146,7 +146,7 @@
 
   .chip {
     flex-shrink: 0;
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #FFFFFF;
     border: 1px solid rgba(255,255,255,.15);
     border-radius: 20px;
@@ -157,7 +157,7 @@
     transition: background .15s;
     white-space: nowrap;
   }
-  .chip:active { background: #4a6b7a; }
+  .chip:active { background: var(--army-dark); }
   .chip.urg-c   { background: #922b21; color: #fff; }
   .chip.urg-i   { background: #d4ac0d; color: #1a1a1a; }
   .chip.urg-r   { background: #1a6b3c; color: #fff; }
@@ -269,7 +269,7 @@
     display: none;
     border-top: 1px solid var(--border);
     padding: 13px 14px 14px;
-    background: #D4DDE2;
+    background: #EAF0FB;
     animation: slideDown .18s ease-out;
   }
   .card.open .card-detail { display: block; }
@@ -322,7 +322,7 @@
     letter-spacing: .5px;
     margin-bottom: 7px;
   }
-  .notif-label-cougar { color: #7D5A1A; }
+  .notif-label-cougar { color: var(--army-tan); }
   .notif-label-vcorps { color: var(--army-dark); }
   .addl-email-row {
     display: flex;
@@ -334,17 +334,17 @@
   .addl-email-label {
     font-size: 11px;
     font-weight: bold;
-    color: #1a5276;
+    color: var(--army-dark);
     white-space: nowrap;
   }
   .addl-email-badge {
     display: inline-block;
-    background: #d5e8f5;
-    border: 1px solid #5D9CDA;
+    background: #FFF4CC;
+    border: 1px solid var(--army-tan);
     border-radius: 4px;
     font-size: 11px;
     padding: 2px 7px;
-    color: #1a5276;
+    color: var(--army-dark);
     font-weight: bold;
   }
 
@@ -387,7 +387,7 @@
   /* Notes */
   .notes-section { margin-top: 4px; }
   .note-item {
-    background: #D4DDE2;
+    background: #DDE4F5;
     border-left: 3px solid var(--army-tan);
     border-radius: 0 6px 6px 0;
     padding: 8px 10px;
@@ -426,9 +426,9 @@
     width: 100%;
     margin-top: 12px;
     padding: 11px;
-    background: #5C7E8F;
-    color: #fff;
-    border: 1px solid #D4DDE2;
+    background: var(--army-dark);
+    color: var(--army-tan);
+    border: 1px solid var(--army-tan);
     border-radius: 8px;
     font-size: 14px;
     font-weight: 800;
@@ -441,9 +441,9 @@
   /* ── CONTACTS PANEL ── */
   .contacts-btn {
     flex: 1;
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #fff;
-    border: 1px solid #D4DDE2;
+    border: 1px solid rgba(232,168,0,0.4);
     border-radius: 6px;
     padding: 10px 6px;
     font-size: 13px;
@@ -512,7 +512,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
-    border-bottom: 1px solid #A2A2A2;
+    border-bottom: 1px solid var(--border);
   }
   .contacts-row:last-child { border-bottom: none; }
   .contacts-pos {
@@ -538,10 +538,10 @@
   .desktop-toggle-btn {
     flex: 1;
     padding: 10px 6px;
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #fff;
     text-align: center;
-    border: 1px solid #D4DDE2;
+    border: 1px solid rgba(232,168,0,0.4);
     border-radius: 6px;
     font-size: 13px;
     font-weight: 800;
@@ -549,7 +549,7 @@
     white-space: nowrap;
     letter-spacing: .3px;
   }
-  .desktop-toggle-btn:active { background: #4a6b7a; }
+  .desktop-toggle-btn:active { background: var(--army-dark); }
 </style>
 </head>
 <body>
@@ -590,7 +590,7 @@
   <div style="padding: 6px 12px 8px; background: var(--army-dark); display:flex; gap:8px;">
     <button class="desktop-toggle-btn" onclick="switchToDesktop()">Desktop</button>
     <a href="CCIR-Report-Form.html" style="text-decoration:none; flex:1; display:flex;">
-      <button style="flex:1;padding:10px;background:#5C7E8F;color:#fff;border:1px solid #D4DDE2;border-radius:6px;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;">&#9998; Submit CCIR</button>
+      <button style="flex:1;padding:10px;background:var(--army-green);color:#fff;border:1px solid rgba(232,168,0,0.4);border-radius:6px;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;">&#9998; Submit CCIR</button>
     </a>
     <button class="contacts-btn" onclick="toggleContacts()">Contacts</button>
   </div>
