@@ -224,6 +224,11 @@
   .notif-E { background: #5D6D7E; color: #fff; }
   .notif-star { background: #555; color: #fff; }
 
+  /* COLUMN HEADER POSITION BADGES */
+  .hdr-badge { display: block; padding: 2px 5px; border-radius: 3px; font-size: 10px; font-weight: bold; text-align: center; margin: 2px 0; white-space: nowrap; }
+  .hdr-cougar { background: #7D5A1A; color: #fff; }
+  .hdr-vcorps { background: var(--army-dark); color: #fff; }
+
   /* DESCRIPTION */
   .desc-title {
     font-weight: bold;
@@ -567,11 +572,11 @@
           <th onclick="sortTable(2)">Urgency</th>
           <th onclick="sortTable(3)">Class</th>
           <th style="min-width:320px; cursor:default">Incident Description</th>
-          <th onclick="sortTable(5)">C05 / G33</th>
-          <th onclick="sortTable(6)">C03 / G3</th>
-          <th onclick="sortTable(7)">C08 / COS</th>
-          <th onclick="sortTable(8)">C07 / DCG</th>
-          <th onclick="sortTable(9)">C06 / CG</th>
+          <th onclick="sortTable(5)"><span class="hdr-badge hdr-cougar">C05</span><span class="hdr-badge hdr-vcorps">G33</span></th>
+          <th onclick="sortTable(6)"><span class="hdr-badge hdr-cougar">C03</span><span class="hdr-badge hdr-vcorps">G3</span></th>
+          <th onclick="sortTable(7)"><span class="hdr-badge hdr-cougar">C08</span><span class="hdr-badge hdr-vcorps">COS</span></th>
+          <th onclick="sortTable(8)"><span class="hdr-badge hdr-cougar">C07</span><span class="hdr-badge hdr-vcorps">DCG</span></th>
+          <th onclick="sortTable(9)"><span class="hdr-badge hdr-cougar">C06</span><span class="hdr-badge hdr-vcorps">CG</span></th>
           <th style="cursor:default">Report</th>
         </tr>
       </thead>
