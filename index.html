@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V Corps CCIR Matrix — 20 FEB 2026</title>
+<title>Cougar CCIR Matrix — 20 MAY 2026</title>
 <script>
 (function(){
   var pref = localStorage.getItem('ccirViewPref');
@@ -17,10 +17,10 @@
 </script>
 <style>
   :root {
-    --army-green: #5C7E8F;
-    --army-dark: #4a6b7a;
-    --army-tan: #A2A2A2;
-    --army-light: #D4DDE2;
+    --army-green: #2B45A8;
+    --army-dark: #1C2B78;
+    --army-tan: #E8A800;
+    --army-light: #EAF0FB;
     --critical: #c0392b;
     --critical-light: #f9dddb;
     --immediate: #d68910;
@@ -31,13 +31,13 @@
     --fl: #d68910;
     --r-color: #2471a3;
     --d-color: #717d7e;
-    --border: #A2A2A2;
+    --border: #B0B8C8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
-    background: #D4DDE2;
+    background: #EAF0FB;
     color: #1a1a1a;
   }
 
@@ -50,7 +50,7 @@
   }
   .header-top { display: flex; align-items: center; gap: 14px; }
   .header h1 { font-size: 20px; letter-spacing: 1px; text-transform: uppercase; }
-  .header p { font-size: 11px; color: #D4DDE2; margin-top: 2px; }
+  .header p { font-size: 11px; color: var(--army-tan); margin-top: 2px; }
   .unclass-banner {
     text-align: center;
     background: #27ae60;
@@ -72,7 +72,7 @@
     border-bottom: 3px solid var(--army-tan);
   }
   .control-group { display: flex; flex-direction: column; gap: 3px; }
-  .control-group label { color: #D4DDE2; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+  .control-group label { color: var(--army-tan); font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
   .controls input[type=text], .controls select {
     padding: 5px 8px;
     border: 1px solid var(--army-tan);
@@ -93,25 +93,25 @@
   }
   .btn-mobile-toggle {
     padding: 5px 12px;
-    border: 1px solid #D4DDE2;
+    border: 1px solid rgba(232,168,0,0.4);
     border-radius: 3px;
     font-size: 12px;
     cursor: pointer;
     font-weight: bold;
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #fff;
     white-space: nowrap;
     margin-left: auto;
     align-self: flex-end;
   }
   .btn-mobile-toggle:hover { filter: brightness(1.25); }
-  .btn-reset { background: #5C7E8F; color: #fff; border: 1px solid #D4DDE2; }
+  .btn-reset { background: var(--army-green); color: #fff; border: 1px solid rgba(232,168,0,0.4); }
   .btn-reset:hover { filter: brightness(1.25); }
   .btn-submit-row {
     padding: 4px 10px;
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #fff;
-    border: 1px solid #D4DDE2;
+    border: 1px solid rgba(232,168,0,0.4);
     border-radius: 4px;
     font-size: 11px;
     font-weight: bold;
@@ -123,7 +123,7 @@
 
   /* ── STATS BAR ── */
   .stats-bar {
-    background: #4a6b7a;
+    background: var(--army-dark);
     border-bottom: 2px solid var(--army-tan);
     padding: 7px 16px;
     display: flex;
@@ -131,10 +131,10 @@
     gap: 7px;
     align-items: center;
   }
-  .stats-bar > span:first-child { font-size: 11px; color: #D4DDE2; font-weight: bold; letter-spacing: .5px; }
-  .stats-bar .divider { color: #A2A2A2; font-size: 13px; padding: 0 2px; }
+  .stats-bar > span:first-child { font-size: 11px; color: var(--army-tan); font-weight: bold; letter-spacing: .5px; }
+  .stats-bar .divider { color: rgba(255,255,255,0.3); font-size: 13px; padding: 0 2px; }
   .stat-badge {
-    background: #5C7E8F;
+    background: var(--army-green);
     color: #fff;
     padding: 3px 10px;
     border-radius: 10px;
@@ -166,7 +166,7 @@
     font-size: 11px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    border: 1px solid #4a6b7a;
+    border: 1px solid var(--army-dark);
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
@@ -176,12 +176,12 @@
   th.sort-desc::after { content: ' ▼'; }
   td {
     padding: 7px 9px;
-    border: 1px solid #A2A2A2;
+    border: 1px solid var(--border);
     vertical-align: top;
     font-size: 12px;
   }
-  tr:nth-child(even) td { background: #D4DDE2; }
-  tr:hover td { background: #c8d4d9; }
+  tr:nth-child(even) td { background: #EAECF5; }
+  tr:hover td { background: #D4D9EE; }
   tr.hidden { display: none; }
 
   /* CATEGORY badge */
@@ -193,7 +193,7 @@
     font-weight: bold;
     white-space: nowrap;
   }
-  .cat-COUGAR { background: #7D5A1A; color: #fff; }
+  .cat-COUGAR { background: var(--army-tan); color: var(--army-dark); }
   .cat-AVN { background: #1a5276; color: #fff; }
   .cat-CYBER { background: #512e5f; color: #fff; }
   .cat-GEN { background: #784212; color: #fff; }
@@ -226,9 +226,9 @@
 
   /* COLUMN GROUP HEADERS */
   .group-hdr { text-align: center; font-size: 11px; font-weight: bold; padding: 4px 6px; }
-  .group-cougar { background: #7D5A1A; color: #fff; }
+  .group-cougar { background: var(--army-tan); color: var(--army-dark); }
   .group-vcorps { background: var(--army-dark); color: #fff; }
-  th.col-cougar { background: #9E7125; color: #fff; }
+  th.col-cougar { background: #C99400; color: var(--army-dark); }
   th.col-vcorps { background: var(--army-dark); color: #fff; }
 
   /* DESCRIPTION */
@@ -267,17 +267,17 @@
   .addl-email-label {
     font-size: 10.5px;
     font-weight: bold;
-    color: #1a5276;
+    color: var(--army-dark);
     white-space: nowrap;
   }
   .addl-email-badge {
     display: inline-block;
-    background: #d5e8f5;
-    border: 1px solid #5D9CDA;
+    background: #FFF4CC;
+    border: 1px solid var(--army-tan);
     border-radius: 3px;
     font-size: 10px;
     padding: 1px 5px;
-    color: #1a5276;
+    color: var(--army-dark);
     font-weight: bold;
   }
 
@@ -296,7 +296,7 @@
     padding: 7px 16px;
     border: none;
     background: transparent;
-    color: #A2A2A2;
+    color: rgba(255,255,255,0.5);
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
@@ -450,8 +450,8 @@
     margin-top: 8px;
   }
   .contact-bar {
-    background: #2c3e1a;
-    color: #a0c880;
+    background: #141E60;
+    color: var(--army-tan);
     font-size: 11px;
     padding: 5px 16px;
     border-top: 1px solid var(--army-tan);
@@ -469,7 +469,7 @@
     .section { display: block !important; }
     #tab-notes, #tab-criteria { display: none !important; }
     body { background: #fff; font-size: 10px; }
-    .header { background: #4a6b7a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .header { background: #1C2B78 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     table { page-break-inside: auto; }
     tr { page-break-inside: avoid; }
     .unclass-banner { background: #27ae60 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -485,8 +485,8 @@
   <div class="header-top">
     <img src="214_Avn_Rgt_DUI.png" width="52" height="52" alt="1-214 Avn Rgt DUI" style="flex-shrink:0; object-fit:contain;">
     <div>
-      <h1>V Corps CCIR Matrix</h1>
-      <p>Commanders Critical Information Requirements &mdash; Reporting Requirement as of 20 February 2026</p>
+      <h1>Cougar CCIR Matrix</h1>
+      <p>Commanders Critical Information Requirements &mdash; Reporting Requirement as of 20 May 2026</p>
     </div>
   </div>
 </div>
@@ -543,7 +543,7 @@
   <div class="btn-group">
     <button class="btn btn-reset" onclick="resetFilters()">&#10006; Reset</button>
     <a href="CCIR-Report-Form.html" style="text-decoration:none">
-      <button class="btn" style="background:#5C7E8F;color:#fff;font-weight:bold;border:1px solid #D4DDE2">&#9998; Submit Report</button>
+      <button class="btn" style="background:var(--army-green);color:#fff;font-weight:bold;border:1px solid rgba(232,168,0,0.4)">&#9998; Submit Report</button>
     </a>
   </div>
   <button class="btn-mobile-toggle" onclick="switchToMobile()">Mobile View</button>
@@ -560,7 +560,7 @@
 <div id="tab-matrix" class="section active">
   <div class="stats-bar">
     <span>Quick Filter:</span>
-    <span class="stat-badge" style="background:#7D5A1A;color:#fff" onclick="quickFilter('cat','COUGAR')">Cougar</span>
+    <span class="stat-badge" style="background:var(--army-tan);color:var(--army-dark)" onclick="quickFilter('cat','COUGAR')">Cougar</span>
     <span class="stat-badge" onclick="quickFilter('cat','AVN')">Aviation</span>
     <span class="stat-badge" onclick="quickFilter('cat','CYBER')">Cyber</span>
     <span class="stat-badge" onclick="quickFilter('cat','GEN')">GEN</span>
@@ -732,7 +732,7 @@
   </div>
 </div>
 
-<div class="footer">UNCLASSIFIED &mdash; V Corps CCIR Matrix &mdash; As of 20 February 2026 &mdash; Interactive Reference Tool</div>
+<div class="footer">UNCLASSIFIED &mdash; Cougar CCIR Matrix &mdash; As of 20 May 2026 &mdash; Interactive Reference Tool</div>
 
 <script>
 // ═══════════════════════════════════════════════════
