@@ -193,6 +193,7 @@
     font-weight: bold;
     white-space: nowrap;
   }
+  .cat-COUGAR { background: #7D5A1A; color: #fff; }
   .cat-AVN { background: #1a5276; color: #fff; }
   .cat-CYBER { background: #512e5f; color: #fff; }
   .cat-GEN { background: #784212; color: #fff; }
@@ -220,7 +221,15 @@
   .notif-FL { background: var(--fl); color: #fff; }
   .notif-R { background: var(--r-color); color: #fff; }
   .notif-D { background: var(--d-color); color: #fff; }
+  .notif-E { background: #5D6D7E; color: #fff; }
   .notif-star { background: #555; color: #fff; }
+
+  /* COLUMN GROUP HEADERS */
+  .group-hdr { text-align: center; font-size: 11px; font-weight: bold; padding: 4px 6px; }
+  .group-cougar { background: #7D5A1A; color: #fff; }
+  .group-vcorps { background: var(--army-dark); color: #fff; }
+  th.col-cougar { background: #9E7125; color: #fff; }
+  th.col-vcorps { background: var(--army-dark); color: #fff; }
 
   /* DESCRIPTION */
   .desc-title {
@@ -478,6 +487,7 @@
     <label>Category</label>
     <select id="catFilter" onchange="applyFilters()">
       <option value="">All Categories</option>
+      <option value="COUGAR">Cougar (BN)</option>
       <option value="AVN">Aviation (AVN)</option>
       <option value="CYBER">Cyber</option>
       <option value="GEN">General (GEN)</option>
@@ -514,6 +524,7 @@
       <option value="FL">First Light (FL)</option>
       <option value="R">Routine (R)</option>
       <option value="D">Daily (D)</option>
+      <option value="E">Email Only (E)</option>
     </select>
   </div>
   <div class="btn-group">
@@ -536,6 +547,7 @@
 <div id="tab-matrix" class="section active">
   <div class="stats-bar">
     <span>Quick Filter:</span>
+    <span class="stat-badge" style="background:#7D5A1A;color:#fff" onclick="quickFilter('cat','COUGAR')">Cougar</span>
     <span class="stat-badge" onclick="quickFilter('cat','AVN')">Aviation</span>
     <span class="stat-badge" onclick="quickFilter('cat','CYBER')">Cyber</span>
     <span class="stat-badge" onclick="quickFilter('cat','GEN')">GEN</span>
@@ -557,17 +569,26 @@
     <table id="ccirTable">
       <thead>
         <tr>
-          <th onclick="sortTable(0)">Category</th>
-          <th onclick="sortTable(1)">CCIR #</th>
-          <th onclick="sortTable(2)">Urgency</th>
-          <th onclick="sortTable(3)">Class</th>
-          <th style="min-width:320px; cursor:default">Incident Description</th>
-          <th onclick="sortTable(5)">G33</th>
-          <th onclick="sortTable(6)">G3</th>
-          <th onclick="sortTable(7)">COS</th>
-          <th onclick="sortTable(8)">DCG</th>
-          <th onclick="sortTable(9)">CG</th>
-          <th style="cursor:default">Report</th>
+          <th rowspan="2" data-col="0" onclick="sortTable(0)">Category</th>
+          <th rowspan="2" data-col="1" onclick="sortTable(1)">CCIR #</th>
+          <th rowspan="2" data-col="2" onclick="sortTable(2)">Urgency</th>
+          <th rowspan="2" data-col="3" onclick="sortTable(3)">Class</th>
+          <th rowspan="2" style="min-width:320px; cursor:default">Incident Description</th>
+          <th colspan="5" class="group-hdr group-cougar">Cougar (1-214 BN)</th>
+          <th colspan="5" class="group-hdr group-vcorps">V Corps</th>
+          <th rowspan="2" style="cursor:default">Report</th>
+        </tr>
+        <tr>
+          <th data-col="5"  onclick="sortTable(5)"  class="col-cougar">C05</th>
+          <th data-col="6"  onclick="sortTable(6)"  class="col-cougar">C03</th>
+          <th data-col="7"  onclick="sortTable(7)"  class="col-cougar">C08</th>
+          <th data-col="8"  onclick="sortTable(8)"  class="col-cougar">C07</th>
+          <th data-col="9"  onclick="sortTable(9)"  class="col-cougar">C06</th>
+          <th data-col="10" onclick="sortTable(10)" class="col-vcorps">G33</th>
+          <th data-col="11" onclick="sortTable(11)" class="col-vcorps">G3</th>
+          <th data-col="12" onclick="sortTable(12)" class="col-vcorps">COS</th>
+          <th data-col="13" onclick="sortTable(13)" class="col-vcorps">DCG</th>
+          <th data-col="14" onclick="sortTable(14)" class="col-vcorps">CG</th>
         </tr>
       </thead>
       <tbody id="ccirBody">
@@ -723,33 +744,49 @@ const NOTES = {
 };
 
 const CCIRS = [
+  // COUGAR (1-214 BN)
+  { cat:'COUGAR', num:'1',  urg:'C', cls:'U', title:'Inability to support a directed mission', desc:'Does not include inability due to forces outside the unit\'s control (ie weather, customer voluntarily adjusts requests, etc)', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'2',  urg:'C', cls:'U', title:'Any 1-214th Aircraft Declaring an Emergency or Precautionary Landing', desc:'Provide initial recovery plan for crew and aircraft with 5Ws', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'3',  urg:'C', cls:'U', title:'Loss of MEDEVAC coverage', desc:'Any inability or potential inability to provide tasked MEDEVAC coverage. Provide reason and estimated time coverage will resume', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'4',  urg:'C', cls:'U', title:'Impact to mission requirements due to unforecasted maintenance condition', desc:'Provide specific mission and customer impacts with 5Ws', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'5',  urg:'I', cls:'U', title:'Flight Violation', desc:'Any 1-214th aircrew reported or suspected of committing a flight violation. Relay 5Ws ASAP to USAREUR-AF AFOD CDR; include actions to be taken to retrain or correct this issue surrounding the violation', notes:[], c05:'FL', c03:'FL', c08:'FL', c07:'R', c06:'R', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'6',  urg:'I', cls:'U', title:'Network or mission system outage', desc:'Communication network (NIPR, SIPR, MPE, BICES) or mission system (i.e., MEDEVAC notification network) outage which impacts mission accomplishment', notes:[], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'7',  urg:'R', cls:'U', title:'Execution of a MEDEVAC Mission for a non-1-214th individual', desc:'Requires submission of a MEDEVAC AAR', notes:[], c05:'R', c03:'R', c08:'R', c07:'R', c06:'R', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'8',  urg:'R', cls:'U', title:'Incident resulting in the suspension or recommendation for revocation of a Soldier or Dependent\'s USAREUR-AF Driver Permit', desc:'', notes:[], c05:'R', c03:'R', c08:'R', c07:'R', c06:'R', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'9',  urg:'R', cls:'U', title:'VIP visit to 1-214th Location', desc:'Planned visit to 1-214th unit or Installation by an O6 equivalent or higher that was not tasked/scheduled through BN channels', notes:[], c05:'R', c03:'R', c08:'R', c07:'R', c06:'R', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'10', urg:'R', cls:'U', title:'Ground Vehicle Accident involving a TMP or Military Vehicle', desc:'Any accident involving damage to a military vehicle', notes:[], c05:'R', c03:'R', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'11', urg:'R', cls:'U', title:'Any incident involving a 1-214th Soldier that will result in a Suspension of Favorable Personnel Action', desc:'Report any incident meeting more stringent CCIR criteria as that Category/Number (ie criminal investigation)', notes:[], c05:'E', c03:'E', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'12', urg:'R', cls:'U', title:'Childbirth', desc:'CDR\'s provide 5Ws to C06 along with any potential complications', notes:[], c05:'E', c03:'E', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'13', urg:'R', cls:'U', title:'Hospitalization of a SM or Dependent', desc:'Not inclusive of ER visits that don\'t lead to an admission into the hospital', notes:[], c05:'E', c03:'E', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'14', urg:'R', cls:'U', title:'Red Cross Message', desc:'Include the SM\'s plan for E-Leave if applicable in 5W', notes:[], c05:'E', c03:'E', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
+  { cat:'COUGAR', num:'15', urg:'R', cls:'U', title:'Any other incident of concern', desc:'Incident that may be of concern to the BN commander based on the nature, gravity, or potential consequences of the incident.', notes:[], c05:'E', c03:'E', c08:'E', c07:'E', c06:'E', g33:'', g3:'', cos:'', dcg:'', cg:'' },
   // AVIATION
-  { cat:'AVN', num:'1', urg:'C', cls:'S', title:'Missing manned V Corps aircraft', desc:'Aircraft lost radio or radar contact with flight controllers.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'AVN', num:'2', urg:'C', cls:'U', title:'Class "A" aviation accident', desc:'Meeting at least one criteria:\n&bull; Equipment or property damage of $2,500,000 or more.\n&bull; Aircraft destroyed, missing, or abandoned.', notes:[9], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'AVN', num:'3', urg:'I', cls:'U', title:'Class "B" aviation accident', desc:'Meeting at least one of the following criteria:\n&bull; Equipment or property damage of at least $600,000 but less than $2,500,000.\n&bull; Three or more personnel are hospitalized as inpatients as the result of a single occurrence.', notes:[9], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'AVN', num:'4', urg:'I', cls:'U', title:'Lasing of V Corps aircraft', desc:'The aircrew experienced lasing interference.', notes:[6,9], g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
-  { cat:'AVN', num:'5', urg:'R', cls:'U', title:'Class "C" aviation accident', desc:'Equipment or property damage of at least $60,000 but less than $600,000. No injuries to MIL or civilian personnel.', notes:[9], g33:'WU', g3:'WU', cos:'FL', dcg:'R', cg:'R' },
+  { cat:'AVN', num:'1', urg:'C', cls:'S', title:'Missing manned V Corps aircraft', desc:'Aircraft lost radio or radar contact with flight controllers.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'AVN', num:'2', urg:'C', cls:'U', title:'Class "A" aviation accident', desc:'Meeting at least one criteria:\n&bull; Equipment or property damage of $2,500,000 or more.\n&bull; Aircraft destroyed, missing, or abandoned.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'AVN', num:'3', urg:'I', cls:'U', title:'Class "B" aviation accident', desc:'Meeting at least one of the following criteria:\n&bull; Equipment or property damage of at least $600,000 but less than $2,500,000.\n&bull; Three or more personnel are hospitalized as inpatients as the result of a single occurrence.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'AVN', num:'4', urg:'I', cls:'U', title:'Lasing of V Corps aircraft', desc:'The aircrew experienced lasing interference.', notes:[6,9], c05:'FL', c03:'FL', c08:'FL', c07:'FL', c06:'FL', g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
+  { cat:'AVN', num:'5', urg:'R', cls:'U', title:'Class "C" aviation accident', desc:'Equipment or property damage of at least $60,000 but less than $600,000. No injuries to MIL or civilian personnel.', notes:[9], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'WU', g3:'WU', cos:'FL', dcg:'R', cg:'R' },
   { cat:'AVN', num:'6', urg:'R', cls:'S', title:'Actual or potential change that degrades mission capability', desc:'Actual or potential change that degrades or negatively impacts training, current operations or support to contingency operations.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
   { cat:'AVN', num:'7A', urg:'I', cls:'S', title:'UNMANNED V Corps aircraft — damaged/missing/downed', desc:'Aircraft is damaged, missing (lost radio or radar contact with flight controllers) or downed.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'AVN', num:'7B', urg:'I', cls:'S', title:'UNMANNED V Corps aircraft — lost link, potential cross-border', desc:'Aircraft has lost link to the ground control station, and there is a reasonable belief that direction of flight (DOF) and battery life could place the aircraft on an azimuth to cross an international boundary line.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'AVN', num:'8', urg:'I', cls:'U', title:'Grounding of V Corps aircraft or change to freedom of movement', desc:'', notes:[6,9], g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
+  { cat:'AVN', num:'8', urg:'I', cls:'U', title:'Grounding of V Corps aircraft or change to freedom of movement', desc:'', notes:[6,9], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
   // CYBER
   { cat:'CYBER', num:'1', urg:'C', cls:'U', title:'Cyber CAT I / II incident', desc:'Compromise that allows unauthorized privileged or non-privileged access to a USAREUR-AF network or system.', notes:[6], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'CYBER', num:'2', urg:'I', cls:'S', title:'Complete loss of USAREUR-AF DRSN capability', desc:'', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'CYBER', num:'3', urg:'C', cls:'U', title:'Loss or compromise of COMSEC', desc:'', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'CYBER', num:'3', urg:'C', cls:'U', title:'Loss or compromise of COMSEC', desc:'', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'CYBER', num:'4', urg:'I', cls:'S', title:'Communication network or mission system outage > 4 hours', desc:'Communication network (NIPR, SIPR, MPE, BICES) or mission system (i.e., JOPES) outage greater than four hours.', notes:[], g33:'FL', g3:'FL', cos:'R', dcg:'R', cg:'R' },
-  { cat:'CYBER', num:'5', urg:'R', cls:'S', title:'Spillage Incident', desc:'Unintentional or deliberate exposure of sensitive data or information on a computer or system that is lower than the intended classification level.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'CYBER', num:'5', urg:'R', cls:'S', title:'Spillage Incident', desc:'Unintentional or deliberate exposure of sensitive data or information on a computer or system that is lower than the intended classification level.', notes:[], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
   // GEN
-  { cat:'GEN', num:'1', urg:'I', cls:'U', title:'Media attention', desc:'Event involving V Corps Personnel, assets, or installations which is likely to generate negative media attention. If incident involves manned aircraft, report through CCIR - AVN 2.', notes:[14], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'GEN', num:'1', urg:'I', cls:'U', title:'Media attention', desc:'Event involving V Corps Personnel, assets, or installations which is likely to generate negative media attention. If incident involves manned aircraft, report through CCIR - AVN 2.', notes:[14], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'GEN', num:'2', urg:'C', cls:'U', title:'Protests that place V Corps installations at risk', desc:'Protests that turn violent or in which protestors attempt to gain or have gained access to the installation.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'GEN', num:'3', urg:'I', cls:'U', title:'High visibility mortuary affairs (MA) event', desc:'MA movement scheduled through the V Corps AO that might be considered high profile or politically sensitive.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'GEN', num:'4', urg:'C', cls:'S', title:'International incident involving V Corps forces', desc:'Violations of the Geneva Conventions; incursion of any sovereign border; atrocities; fratricide; genocide; collateral damage causing civilian deaths.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   { cat:'GEN', num:'5', urg:'R', cls:'U', title:'VIP visit to V Corps', desc:'Planned visit to a V Corps unit or Installation by: POTUS, VPOTUS, U.S. GOV Secretary, Foreign leader or senior dignitary, Ambassador, GOVDEL, CODEL, STAFFDEL, Other Service 4-Star or above equivalent.', notes:[2], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
-  { cat:'GEN', num:'6', urg:'R', cls:'U', title:'Unaccounted for AA&amp;E', desc:'Theft, attempted theft, suspected theft, loss, unaccounted for, or recovered government firearms ammunition and explosives (AA&amp;E) of any type or caliber.\n<em>Note: Does not include expended ammunition (duds) found on training areas or devices turned into amnesty boxes at ammunition supply points.</em>', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
-  { cat:'GEN', num:'7', urg:'R', cls:'U', title:'Theft of a Government vehicle', desc:'Applies to tactical or combat vehicle.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
-  { cat:'GEN', num:'8', urg:'R', cls:'U', title:'POL Spill', desc:'&bull; &gt;25 gallons that spill onto land\n&bull; Any volume into a body of water (to include storm drains)\n&bull; Any spill that occurs outside a military fenceline\n&bull; Any spill that is determined to be otherwise significant by the unit EO officer', notes:[12], g33:'FL', g3:'FL', cos:'R', dcg:'D', cg:'D' },
-  { cat:'GEN', num:'9', urg:'R', cls:'U', title:'SM life saving intervention', desc:'Non-combat intervention that results in the prevention of an attack by individual or individuals, or preservation of life (lifesaving action).', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
-  { cat:'GEN', num:'10', urg:'C', cls:'U', title:'Unplanned detonation of an explosive device', desc:'Unplanned detonation within one kilometer of V Corps installation or troop concentration.', notes:[6], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'GEN', num:'6', urg:'R', cls:'U', title:'Unaccounted for AA&amp;E', desc:'Theft, attempted theft, suspected theft, loss, unaccounted for, or recovered government firearms ammunition and explosives (AA&amp;E) of any type or caliber.\n<em>Note: Does not include expended ammunition (duds) found on training areas or devices turned into amnesty boxes at ammunition supply points.</em>', notes:[], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'GEN', num:'7', urg:'R', cls:'U', title:'Theft of a Government vehicle', desc:'Applies to tactical or combat vehicle.', notes:[], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'GEN', num:'8', urg:'R', cls:'U', title:'POL Spill', desc:'&bull; &gt;25 gallons that spill onto land\n&bull; Any volume into a body of water (to include storm drains)\n&bull; Any spill that occurs outside a military fenceline\n&bull; Any spill that is determined to be otherwise significant by the unit EO officer', notes:[12], c05:'FL', c03:'FL', c08:'E', c07:'E', c06:'E', g33:'FL', g3:'FL', cos:'R', dcg:'D', cg:'D' },
+  { cat:'GEN', num:'9', urg:'R', cls:'U', title:'SM life saving intervention', desc:'Non-combat intervention that results in the prevention of an attack by individual or individuals, or preservation of life (lifesaving action).', notes:[], c05:'FL', c03:'FL', c08:'FL', c07:'FL', c06:'FL', g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'GEN', num:'10', urg:'C', cls:'U', title:'Unplanned detonation of an explosive device', desc:'Unplanned detonation within one kilometer of V Corps installation or troop concentration.', notes:[6], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   { cat:'GEN', num:'11', urg:'I', cls:'U', title:'Planned detonation of an explosive device', desc:'Planned detonation (i.e., WWII explosive device) within one kilometer of V Corps installation or troop concentration.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
   // IAMD
   { cat:'IAMD', num:'1', urg:'C', cls:'S', title:'Loss of US Patriot coverage of DAL', desc:'Complete loss of US Patriot coverage of a DAL within USEUCOM and USAFRICOM AORs.', notes:[6], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
@@ -757,10 +794,10 @@ const CCIRS = [
   { cat:'IAMD', num:'3', urg:'I', cls:'U', title:'M/FS-LIDS operational degradation in manning and/or system status', desc:'The degradation of an M/FS-LIDS system from an FMC status (regardless of degradation level); loss of system offensive and / or sensing capability; any manning constraint that impacts or limits the full operation of the system.', notes:[11], g33:'FL', g3:'FL', cos:'FL', dcg:'R', cg:'R' },
   // OPS
   { cat:'OPS', num:'1', urg:'C', cls:'U', title:'Search and rescue operation', desc:'Confirmed discovery, rescue, release of US Army personnel or DA Civilians within V Corps AO that required US military support.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'OPS', num:'2', urg:'I', cls:'U', title:'Failure or degradation of mission support', desc:'Safety of flight/Use messages deadlining equipment or failure of equipment that has an impact or potential impact to mission support.', notes:[6], g33:'FL', g3:'FL', cos:'FL', dcg:'R', cg:'R' },
+  { cat:'OPS', num:'2', urg:'I', cls:'U', title:'Failure or degradation of mission support', desc:'Safety of flight/Use messages deadlining equipment or failure of equipment that has an impact or potential impact to mission support.', notes:[6], c05:'FL', c03:'FL', c08:'R', c07:'R', c06:'R', g33:'FL', g3:'FL', cos:'FL', dcg:'R', cg:'R' },
   { cat:'OPS', num:'3', urg:'I', cls:'U', title:'Tier-1 Critical Asset incident', desc:'Impact to Tier-1 asset that has an impact or potential impact to operations.', notes:[6], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'OPS', num:'4', urg:'R', cls:'S', title:'Required Delivery Date (RDD) impact on strategic movements', desc:'Delays to deployment or redeployment missions that will impact the RDD greater than 24-hours.', notes:[6], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
-  { cat:'OPS', num:'5', urg:'I', cls:'U', title:'Change to USAREUR-AF Force Protection Condition (FPCON)', desc:'FPCON increase or decrease at V Corps installations.', notes:[15], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'OPS', num:'5', urg:'I', cls:'U', title:'Change to USAREUR-AF Force Protection Condition (FPCON)', desc:'FPCON increase or decrease at V Corps installations.', notes:[15], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'OPS', num:'6', urg:'I', cls:'S', title:'USEUCOM Watch Condition (WATCHCON) change', desc:'USEUCOM increased or decreased their WATCHCON level.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
   { cat:'OPS', num:'7', urg:'I', cls:'U', title:'Change to V Corps Health Protection Condition (HPCON)', desc:'USAREUR-AF increased or decreased HPCON level.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
   { cat:'OPS', num:'8', urg:'I', cls:'S', title:'Unable to achieve/maintain FPCON', desc:'V Corps installation unable to achieve or maintain required FPCON.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
@@ -775,35 +812,35 @@ const CCIRS = [
   { cat:'RUS', num:'1', urg:'C', cls:'S', title:'Suspension of Russian deconfliction line', desc:'Russian Federation suspends use of the U.S.-Russia Deconfliction Line either by refusal to engage in meaningful deconfliction or refusal to answer the deconfliction line in a 24-hour period.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   { cat:'RUS', num:'2', urg:'C', cls:'S', title:'Russian incursion into the V Corps AoR', desc:'Ground, air, or water incursion to include sUAS crossing into V Corps protected air space.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   // SPOT
-  { cat:'SPOT', num:'1', urg:'C', cls:'U', title:'Death of USAREUR-AF personnel', desc:'V Corps Service member (SM), DA Civilian (DAC), DoD Contractor (CTR) and their sponsored dependents, and Local Nationals in an on-duty status. This includes SM, DAC and CTR personnel in a TDY or leave status, regardless of location.', notes:[3], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'SPOT', num:'2', urg:'I', cls:'U', title:'Any training or non-training incident with very serious injury or illness', desc:'Non-training accident / incident resulting in very serious injury to V Corps military and DA Civilian personnel. (E.G., loss of eyesight, paralysis, critical condition, discovery of an acute life threatening medical condition).', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'SPOT', num:'3', urg:'I', cls:'U', title:'Training or non-training incident with serious injury', desc:'Training or troop movement accident/incident resulting in a serious injury requiring air medical evacuation or hospitalization, but not rising to the level of Spot 2.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'1', urg:'C', cls:'U', title:'Death of USAREUR-AF personnel', desc:'V Corps Service member (SM), DA Civilian (DAC), DoD Contractor (CTR) and their sponsored dependents, and Local Nationals in an on-duty status. This includes SM, DAC and CTR personnel in a TDY or leave status, regardless of location.', notes:[3], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'SPOT', num:'2', urg:'I', cls:'U', title:'Any training or non-training incident with very serious injury or illness', desc:'Non-training accident / incident resulting in very serious injury to V Corps military and DA Civilian personnel. (E.G., loss of eyesight, paralysis, critical condition, discovery of an acute life threatening medical condition).', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'3', urg:'I', cls:'U', title:'Training or non-training incident with serious injury', desc:'Training or troop movement accident/incident resulting in a serious injury requiring air medical evacuation or hospitalization, but not rising to the level of Spot 2.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'4', urg:'C', cls:'U', title:'Incident involving V Corps senior leader (CSM, CW5, COL/GS15, GO/SES)', desc:'Criminal activity/arrest, imminent threat, critical condition or death of a V Corps senior leader.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'SPOT', num:'5', urg:'I', cls:'U', title:'Death of an LN involving V Corps personnel', desc:'V Corps military or DA Civilians are involved, other than a witness, in the death of a local national.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'5', urg:'I', cls:'U', title:'Death of an LN involving V Corps personnel', desc:'V Corps military or DA Civilians are involved, other than a witness, in the death of a local national.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'6', urg:'I', cls:'U', title:'Sexual assault/harassment — senior SM or SHARP professional', desc:'Any unrestricted sexual assault report or formal sexual harassment complaint when the Subject is one of the following:\n&bull; Commander, O-5(P) and above, CSM, Senior DA Civilian (GS-15 / SES).\n&bull; SHARP professional currently serving or with an active D-SAACP certification (regardless if currently in the position). Special Victims\' Counsel, Special Trial Counsel, USACIDC Sexual Assault Investigator, Special Victim Witness Liaison, Chaplain, Sexual Assault Nurse Examiners and Sexual Assault Medical Forensic Examiners.\n&bull; Cases expected to attract high media or Congressional attention.', notes:[10], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'SPOT', num:'7', urg:'R', cls:'U', title:'Sexual assault', desc:'Indecent/sexual assault and rape when a V Corps member (MIL, DAC, Government Contractor, or their family member) within V Corps AO, is either a victim or an alleged offender.', notes:[], g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'7', urg:'R', cls:'U', title:'Sexual assault', desc:'Indecent/sexual assault and rape when a V Corps member (MIL, DAC, Government Contractor, or their family member) within V Corps AO, is either a victim or an alleged offender.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'D', dcg:'D', cg:'D' },
   { cat:'SPOT', num:'8', urg:'I', cls:'S', title:'Security threat or attack against V Corps installations or forces', desc:'&bull; Report of suspicious package at an installation or facility that is assessed to be an actual threat.\n&bull; Threat, attack, or incident at a government facility or event that affects or potentially affects personnel or operation.\n&bull; Individual on the known / suspected terrorist watch list attempts to gain access to an installation.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'9', urg:'I', cls:'U', title:'Failed security measures at a V Corps installation', desc:'Any unauthorized/unidentified access onto an army installation when installation security measures fail to prevent access.', notes:[4], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'10', urg:'I', cls:'U', title:'Request for political asylum or defection', desc:'V Corps Service member or DA Civilian request political asylum in a foreign country or indication of defection.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'SPOT', num:'11', urg:'R', cls:'U', title:'Suicide attempt', desc:'Attempted suicide by a V Corps Service member, Department Army Civilian or their sponsored dependent.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'12', urg:'R', cls:'U', title:'Passive Suicidal Ideation', desc:'V Corps Service member or Department Army Civilian expressed a suicidal ideation without a plan to take one\'s life.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'13', urg:'R', cls:'U', title:'Active Suicidal Ideation', desc:'V Corps Service member or Department Army Civilian expressed a suicidal ideation and has developed a plan to take one\'s life.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'11', urg:'R', cls:'U', title:'Suicide attempt', desc:'Attempted suicide by a V Corps Service member, Department Army Civilian or their sponsored dependent.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'12', urg:'R', cls:'U', title:'Passive Suicidal Ideation', desc:'V Corps Service member or Department Army Civilian expressed a suicidal ideation without a plan to take one\'s life.', notes:[], c05:'FL', c03:'FL', c08:'FL', c07:'FL', c06:'FL', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'13', urg:'R', cls:'U', title:'Active Suicidal Ideation', desc:'V Corps Service member or Department Army Civilian expressed a suicidal ideation and has developed a plan to take one\'s life.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
   { cat:'SPOT', num:'14', urg:'I', cls:'S', title:'Small Unmanned Aircraft System (sUAS)', desc:'sUAS sighting IVO U.S. military installations or personnel. Additional reporting required if a UAS was engaged, created a mission impact or deemed as an unsafe situation.', notes:[1], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'15', urg:'C', cls:'U', title:'Use of deadly force by a SM in an on-duty security capacity', desc:'Deadly force is used by an MP or other SM while performing a security function.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'SPOT', num:'16', urg:'R', cls:'U', title:'Serious criminal offense', desc:'Serious offense by a Service member or DA civilian; murder or attempted murder, aggravated arson, kidnapping, larceny exceeding $10,000, transportation or sale of drugs exceeding $5,000.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'15', urg:'C', cls:'U', title:'Use of deadly force by a SM in an on-duty security capacity', desc:'Deadly force is used by an MP or other SM while performing a security function.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'SPOT', num:'16', urg:'R', cls:'U', title:'Serious criminal offense', desc:'Serious offense by a Service member or DA civilian; murder or attempted murder, aggravated arson, kidnapping, larceny exceeding $10,000, transportation or sale of drugs exceeding $5,000.', notes:[], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
   { cat:'SPOT', num:'17', urg:'I', cls:'U', title:'Natural or manmade disaster', desc:'Disaster impacting USAREUR-AF installations, equipment and/or operations.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'SPOT', num:'18', urg:'R', cls:'U', title:'Domestic violence', desc:'SM is the victim or subject (unrestricted reporting only).', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'19', urg:'R', cls:'U', title:'Child Abuse', desc:'Actual or alleged abuse or sexual abuse, occurring in any USAREUR-AF sponsored activity, organizational setting, or homebased family child care facilities.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'20', urg:'I', cls:'U', title:'SM absent-unknown (AUN) or AWOL', desc:'Duty status change to AUN pending unit determination whether a Soldier\'s unauthorized absence (UA) is voluntary or involuntary.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'18', urg:'R', cls:'U', title:'Domestic violence', desc:'SM is the victim or subject (unrestricted reporting only).', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'19', urg:'R', cls:'U', title:'Child Abuse', desc:'Actual or alleged abuse or sexual abuse, occurring in any USAREUR-AF sponsored activity, organizational setting, or homebased family child care facilities.', notes:[], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'20', urg:'I', cls:'U', title:'SM absent-unknown (AUN) or AWOL', desc:'Duty status change to AUN pending unit determination whether a Soldier\'s unauthorized absence (UA) is voluntary or involuntary.', notes:[], c05:'FL', c03:'FL', c08:'FL', c07:'FL', c06:'FL', g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'21', urg:'R', cls:'U', title:'Suspension or relief of command', desc:'Suspension or relief of CSM, LTC or above in a command position.', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'22', urg:'I', cls:'U', title:'Hostile action against V Corps personnel', desc:'V Corps military, DA Civilians, contractors and their dependents reported as missing when hostile intent is suspected, or taken hostage or captured by terrorist or foreign actor organizations.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   { cat:'SPOT', num:'26', urg:'I', cls:'U', title:'Death or capture of a foreign leader in V Corps AO', desc:'', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'FL', cg:'FL' },
   { cat:'SPOT', num:'27', urg:'I', cls:'U', title:'Incident involving detainees of Army confinement or correctional facilities', desc:'Prisoner or detainee that escapes from confinement or custody, disturbance requiring use of force, allegations of detainee abuse, and serious injury or death of a prisoner.', notes:[], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'28', urg:'R', cls:'U', title:'Arrest of non-senior USAREUR-AF personnel by host nation law enforcement', desc:'Arrest of a non-senior (below CSM, O6/GS15) Service member or Army Civilian by host nation police for a criminal offense that may cause international concern (i.e., theft, hit and run, physical violence, etc.).', notes:[7], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'29', urg:'R', cls:'U', title:'Any other incident of concern', desc:'Incident that may be of concern to the commander based on the nature, gravity, or potential consequences of the incident. If Class A–C Ground Vehicle Accident, see Note 9.', notes:[9], g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
-  { cat:'SPOT', num:'30', urg:'C', cls:'U', title:'Class "A" ground accident', desc:'An Army mishap in which:\n(1) An injury and/or occupational illness results in a fatality or permanent total disability (as defined in the glossary); or\n(2) A manned Army vehicle or equipment destroyed, missing, or abandoned; or\n(3) The resulting total cost of property damage to Government and other property is $2.5 million or more.', notes:[9], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
-  { cat:'SPOT', num:'31', urg:'C', cls:'U', title:'Class "B" ground accident', desc:'An Army mishap in which:\n(1) An injury and/or occupational illness results in permanent partial disability (as defined in the glossary); or\n(2) Three or more personnel are hospitalized as inpatients as the result of a single occurrence; or\n(3) The resulting total cost of property damage to Government and other property is $600,000 or more but less than $2.5 million.', notes:[9], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
-  { cat:'SPOT', num:'32', urg:'C', cls:'U', title:'Class "C" ground accident', desc:'An Army mishap in which:\n(1) A nonfatal injury or occupational illness results in 1 or more days away from work or training beyond the day or shift on which it occurred; or\n(2) Temporary disability ensues at any time thereafter, resulting in days away from work and does not meet the definition of class A or B; or\n(3) The resulting total cost of property damage to Government and other property is $60,000 or more but less than $600,000.', notes:[9], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'28', urg:'R', cls:'U', title:'Arrest of non-senior USAREUR-AF personnel by host nation law enforcement', desc:'Arrest of a non-senior (below CSM, O6/GS15) Service member or Army Civilian by host nation police for a criminal offense that may cause international concern (i.e., theft, hit and run, physical violence, etc.).', notes:[7], c05:'WU', c03:'WU', c08:'FL', c07:'FL', c06:'FL', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'29', urg:'R', cls:'U', title:'Any other incident of concern', desc:'Incident that may be of concern to the commander based on the nature, gravity, or potential consequences of the incident. If Class A–C Ground Vehicle Accident, see Note 9.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'R', g3:'R', cos:'R', dcg:'D', cg:'D' },
+  { cat:'SPOT', num:'30', urg:'C', cls:'U', title:'Class "A" ground accident', desc:'An Army mishap in which:\n(1) An injury and/or occupational illness results in a fatality or permanent total disability (as defined in the glossary); or\n(2) A manned Army vehicle or equipment destroyed, missing, or abandoned; or\n(3) The resulting total cost of property damage to Government and other property is $2.5 million or more.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
+  { cat:'SPOT', num:'31', urg:'C', cls:'U', title:'Class "B" ground accident', desc:'An Army mishap in which:\n(1) An injury and/or occupational illness results in permanent partial disability (as defined in the glossary); or\n(2) Three or more personnel are hospitalized as inpatients as the result of a single occurrence; or\n(3) The resulting total cost of property damage to Government and other property is $600,000 or more but less than $2.5 million.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'SPOT', num:'32', urg:'C', cls:'U', title:'Class "C" ground accident', desc:'An Army mishap in which:\n(1) A nonfatal injury or occupational illness results in 1 or more days away from work or training beyond the day or shift on which it occurred; or\n(2) Temporary disability ensues at any time thereafter, resulting in days away from work and does not meet the definition of class A or B; or\n(3) The resulting total cost of property damage to Government and other property is $60,000 or more but less than $600,000.', notes:[9], c05:'WU', c03:'WU', c08:'WU', c07:'WU', c06:'WU', g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
   // R-27
   { cat:'R-27', num:'See**', urg:'R', cls:'U', title:'Any other report(s) of sexual harassment — below priority/immediate threshold', desc:'Any other report(s) of sexual harassment that does not meet the priority or immediate categories.\n<em>**This is a V Corps internal CCIR; There is no UR-AF corresponding CCIR Number unless elevated to SPOT 6 or SPOT 7.</em>', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
   // UKR
@@ -817,7 +854,8 @@ const CCIRS = [
 // RENDER
 // ═══════════════════════════════════════════════════
 function notifBadge(code) {
-  const cls = code === 'WU' ? 'notif-WU' : code === 'FL' ? 'notif-FL' : code === 'R' ? 'notif-R' : code === 'D' ? 'notif-D' : 'notif-star';
+  if (!code) return '<span style="color:#bbb;font-size:13px">—</span>';
+  const cls = code === 'WU' ? 'notif-WU' : code === 'FL' ? 'notif-FL' : code === 'R' ? 'notif-R' : code === 'D' ? 'notif-D' : code === 'E' ? 'notif-E' : 'notif-star';
   return `<span class="notif ${cls}">${code}</span>`;
 }
 
@@ -826,7 +864,7 @@ function urgBadge(u) {
 }
 
 function catClass(cat) {
-  const map = { AVN:'AVN', CYBER:'CYBER', GEN:'GEN', IAMD:'IAMD', OPS:'OPS', RUS:'RUS', SPOT:'SPOT', UKR:'UKR', 'R-27':'R27' };
+  const map = { COUGAR:'COUGAR', AVN:'AVN', CYBER:'CYBER', GEN:'GEN', IAMD:'IAMD', OPS:'OPS', RUS:'RUS', SPOT:'SPOT', UKR:'UKR', 'R-27':'R27' };
   return 'cat-' + (map[cat] || 'GEN');
 }
 
@@ -854,7 +892,9 @@ function renderTable(data) {
     tr.dataset.cat = row.cat;
     tr.dataset.urg = row.urg.toUpperCase();
     tr.dataset.cls = row.cls.toUpperCase();
-    tr.dataset.levels = [row.g33, row.g3, row.cos, row.dcg, row.cg].join(',');
+    const c05=row.c05||'', c03=row.c03||'', c08=row.c08||'', c07=row.c07||'', c06=row.c06||'';
+    const g33=row.g33||'', g3=row.g3||'',   cos=row.cos||'', dcg=row.dcg||'', cg=row.cg||'';
+    tr.dataset.levels = [c05,c03,c08,c07,c06,g33,g3,cos,dcg,cg].join(',');
     tr.dataset.text = [row.cat, row.num, row.title, row.desc].join(' ').toLowerCase();
     tr.innerHTML = `
       <td><span class="cat-badge ${catClass(row.cat)}">${row.cat}</span></td>
@@ -862,11 +902,16 @@ function renderTable(data) {
       <td style="text-align:center">${urgBadge(row.urg)}</td>
       <td style="text-align:center"><span class="cls cls-${row.cls.toUpperCase()}">${row.cls.toUpperCase()}</span></td>
       <td>${buildDesc(row)}</td>
-      <td style="text-align:center">${notifBadge(row.g33)}</td>
-      <td style="text-align:center">${notifBadge(row.g3)}</td>
-      <td style="text-align:center">${notifBadge(row.cos)}</td>
-      <td style="text-align:center">${notifBadge(row.dcg)}</td>
-      <td style="text-align:center">${notifBadge(row.cg)}</td>
+      <td style="text-align:center">${notifBadge(c05)}</td>
+      <td style="text-align:center">${notifBadge(c03)}</td>
+      <td style="text-align:center">${notifBadge(c08)}</td>
+      <td style="text-align:center">${notifBadge(c07)}</td>
+      <td style="text-align:center">${notifBadge(c06)}</td>
+      <td style="text-align:center">${notifBadge(g33)}</td>
+      <td style="text-align:center">${notifBadge(g3)}</td>
+      <td style="text-align:center">${notifBadge(cos)}</td>
+      <td style="text-align:center">${notifBadge(dcg)}</td>
+      <td style="text-align:center">${notifBadge(cg)}</td>
       <td style="text-align:center">
         <button class="btn-submit-row" onclick="submitFromMatrix('${row.cat}','${row.num}','${row.urg}')">&#9998; Report</button>
       </td>
@@ -954,9 +999,9 @@ function sortTable(col) {
   if (sortCol === col) { sortDir *= -1; } else { sortDir = 1; sortCol = col; }
 
   // Update header indicators
-  document.querySelectorAll('th').forEach((th, i) => {
+  document.querySelectorAll('th[data-col]').forEach(th => {
     th.classList.remove('sort-asc', 'sort-desc');
-    if (i === col) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    if (parseInt(th.dataset.col) === col) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
   });
 
   rows.sort((a, b) => {
