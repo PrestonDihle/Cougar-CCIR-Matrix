@@ -193,6 +193,7 @@
     font-weight: bold;
     white-space: nowrap;
   }
+  .cat-COUGAR { background: #7D5A1A; color: #fff; }
   .cat-AVN { background: #1a5276; color: #fff; }
   .cat-CYBER { background: #512e5f; color: #fff; }
   .cat-GEN { background: #784212; color: #fff; }
@@ -220,6 +221,7 @@
   .notif-FL { background: var(--fl); color: #fff; }
   .notif-R { background: var(--r-color); color: #fff; }
   .notif-D { background: var(--d-color); color: #fff; }
+  .notif-E { background: #5D6D7E; color: #fff; }
   .notif-star { background: #555; color: #fff; }
 
   /* DESCRIPTION */
@@ -478,6 +480,7 @@
     <label>Category</label>
     <select id="catFilter" onchange="applyFilters()">
       <option value="">All Categories</option>
+      <option value="COUGAR">Cougar (BN)</option>
       <option value="AVN">Aviation (AVN)</option>
       <option value="CYBER">Cyber</option>
       <option value="GEN">General (GEN)</option>
@@ -514,6 +517,7 @@
       <option value="FL">First Light (FL)</option>
       <option value="R">Routine (R)</option>
       <option value="D">Daily (D)</option>
+      <option value="E">Email Only (E)</option>
     </select>
   </div>
   <div class="btn-group">
@@ -536,6 +540,7 @@
 <div id="tab-matrix" class="section active">
   <div class="stats-bar">
     <span>Quick Filter:</span>
+    <span class="stat-badge" style="background:#7D5A1A;color:#fff" onclick="quickFilter('cat','COUGAR')">Cougar</span>
     <span class="stat-badge" onclick="quickFilter('cat','AVN')">Aviation</span>
     <span class="stat-badge" onclick="quickFilter('cat','CYBER')">Cyber</span>
     <span class="stat-badge" onclick="quickFilter('cat','GEN')">GEN</span>
@@ -723,6 +728,22 @@ const NOTES = {
 };
 
 const CCIRS = [
+  // COUGAR (1-214 BN)
+  { cat:'COUGAR', num:'1', urg:'C', cls:'U', title:'Inability to support a directed mission', desc:'Does not include inability due to forces outside the unit\'s control (ie weather, customer voluntarily adjusts requests, etc)', notes:[], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'COUGAR', num:'2', urg:'C', cls:'U', title:'Any 1-214th Aircraft Declaring an Emergency or Precautionary Landing', desc:'Provide initial recovery plan for crew and aircraft with 5Ws', notes:[], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'COUGAR', num:'3', urg:'C', cls:'U', title:'Loss of MEDEVAC coverage', desc:'Any inability or potential inability to provide tasked MEDEVAC coverage. Provide reason and estimated time coverage will resume', notes:[], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'COUGAR', num:'4', urg:'C', cls:'U', title:'Impact to mission requirements due to unforecasted maintenance condition', desc:'Provide specific mission and customer impacts with 5Ws', notes:[], g33:'WU', g3:'WU', cos:'FL', dcg:'FL', cg:'FL' },
+  { cat:'COUGAR', num:'5', urg:'I', cls:'U', title:'Flight Violation', desc:'Any 1-214th aircrew reported or suspected of committing a flight violation. Relay 5Ws ASAP to USAREUR-AF AFOD CDR; include actions to be taken to retrain or correct this issue surrounding the violation', notes:[], g33:'FL', g3:'FL', cos:'FL', dcg:'R', cg:'R' },
+  { cat:'COUGAR', num:'6', urg:'I', cls:'U', title:'Network or mission system outage', desc:'Communication network (NIPR, SIPR, MPE, BICES) or mission system (i.e., MEDEVAC notification network) outage which impacts mission accomplishment', notes:[], g33:'FL', g3:'FL', cos:'R', dcg:'R', cg:'R' },
+  { cat:'COUGAR', num:'7', urg:'R', cls:'U', title:'Execution of a MEDEVAC Mission for a non-1-214th individual', desc:'Requires submission of a MEDEVAC AAR', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'COUGAR', num:'8', urg:'R', cls:'U', title:'Incident resulting in the suspension or recommendation for revocation of a Soldier or Dependent\'s USAREUR-AF Driver Permit', desc:'', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'COUGAR', num:'9', urg:'R', cls:'U', title:'VIP visit to 1-214th Location', desc:'Planned visit to 1-214th unit or Installation by an O6 equivalent or higher that was not tasked/scheduled through BN channels', notes:[], g33:'R', g3:'R', cos:'R', dcg:'R', cg:'R' },
+  { cat:'COUGAR', num:'10', urg:'R', cls:'U', title:'Ground Vehicle Accident involving a TMP or Military Vehicle', desc:'Any accident involving damage to a military vehicle', notes:[], g33:'R', g3:'R', cos:'E', dcg:'E', cg:'E' },
+  { cat:'COUGAR', num:'11', urg:'R', cls:'U', title:'Any incident involving a 1-214th Soldier that will result in a Suspension of Favorable Personnel Action', desc:'Report any incident meeting more stringent CCIR criteria as that Category/Number (ie criminal investigation)', notes:[], g33:'E', g3:'E', cos:'E', dcg:'E', cg:'E' },
+  { cat:'COUGAR', num:'12', urg:'R', cls:'U', title:'Childbirth', desc:'CDR\'s provide 5Ws to C06 along with any potential complications', notes:[], g33:'E', g3:'E', cos:'E', dcg:'E', cg:'E' },
+  { cat:'COUGAR', num:'13', urg:'R', cls:'U', title:'Hospitalization of a SM or Dependent', desc:'Not inclusive of ER visits that don\'t lead to an admission into the hospital', notes:[], g33:'E', g3:'E', cos:'E', dcg:'E', cg:'E' },
+  { cat:'COUGAR', num:'14', urg:'R', cls:'U', title:'Red Cross Message', desc:'Include the SM\'s plan for E-Leave if applicable in 5W', notes:[], g33:'E', g3:'E', cos:'E', dcg:'E', cg:'E' },
+  { cat:'COUGAR', num:'15', urg:'R', cls:'U', title:'Any other incident of concern', desc:'Incident that may be of concern to the BN commander based on the nature, gravity, or potential consequences of the incident.', notes:[], g33:'E', g3:'E', cos:'E', dcg:'E', cg:'E' },
   // AVIATION
   { cat:'AVN', num:'1', urg:'C', cls:'S', title:'Missing manned V Corps aircraft', desc:'Aircraft lost radio or radar contact with flight controllers.', notes:[], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
   { cat:'AVN', num:'2', urg:'C', cls:'U', title:'Class "A" aviation accident', desc:'Meeting at least one criteria:\n&bull; Equipment or property damage of $2,500,000 or more.\n&bull; Aircraft destroyed, missing, or abandoned.', notes:[9], g33:'WU', g3:'WU', cos:'WU', dcg:'WU', cg:'WU' },
@@ -817,7 +838,7 @@ const CCIRS = [
 // RENDER
 // ═══════════════════════════════════════════════════
 function notifBadge(code) {
-  const cls = code === 'WU' ? 'notif-WU' : code === 'FL' ? 'notif-FL' : code === 'R' ? 'notif-R' : code === 'D' ? 'notif-D' : 'notif-star';
+  const cls = code === 'WU' ? 'notif-WU' : code === 'FL' ? 'notif-FL' : code === 'R' ? 'notif-R' : code === 'D' ? 'notif-D' : code === 'E' ? 'notif-E' : 'notif-star';
   return `<span class="notif ${cls}">${code}</span>`;
 }
 
@@ -826,7 +847,7 @@ function urgBadge(u) {
 }
 
 function catClass(cat) {
-  const map = { AVN:'AVN', CYBER:'CYBER', GEN:'GEN', IAMD:'IAMD', OPS:'OPS', RUS:'RUS', SPOT:'SPOT', UKR:'UKR', 'R-27':'R27' };
+  const map = { COUGAR:'COUGAR', AVN:'AVN', CYBER:'CYBER', GEN:'GEN', IAMD:'IAMD', OPS:'OPS', RUS:'RUS', SPOT:'SPOT', UKR:'UKR', 'R-27':'R27' };
   return 'cat-' + (map[cat] || 'GEN');
 }
 
